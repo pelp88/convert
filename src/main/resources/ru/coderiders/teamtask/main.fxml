@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="183.0" prefWidth="350.0" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.coderiders.teamtask.Controller">
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   <children>
+      <ChoiceBox fx:id="originalLang" prefWidth="150.0" />
+      <TextField fx:id="enterField" />
+      <ImageView fitHeight="80.0" fitWidth="45.0" preserveRatio="true" style="-fx-rotate: 90;">
+         <image>
+            <Image url="@arrow.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </ImageView>
+      <TextField fx:id="resultField" editable="false" />
+      <ChoiceBox fx:id="targetLang" prefWidth="150.0" />
+      <Button fx:id="button" mnemonicParsing="false" onAction="#onClick" text="Конвертировать" textAlignment="CENTER" />
+   </children>
+</VBox>
