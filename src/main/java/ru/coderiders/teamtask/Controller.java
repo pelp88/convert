@@ -1,19 +1,17 @@
 package ru.coderiders.teamtask;
 
-import javafx.event.EventHandler;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.*;
 
+import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 public class Controller implements Initializable {
-    private final Loader loader = new Loader();
+    private Map<String, Converter> converters = new HashMap<>();
+    private Alert alert = new Alert(Alert.AlertType.ERROR);
 
     @FXML
     private Button button;
@@ -32,22 +30,44 @@ public class Controller implements Initializable {
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
-        Set<String> currencies = this.loader.getCurrencies();
+        Reader webReader = new WebReader();
 
-        for (String currency : currencies){
-            this.originalLang.getItems().add(String.format("%s - %s", currency,
-                    this.loader.getCurrencyName(currency)));
-            this.targetLang.getItems().add(String.format("%s - %s", currency,
-                    this.loader.getCurrencyName(currency)));
+        try {
+            webReader.read();
+        } catch (IOException e) {
+            alert.setTitle("Ошибка!");
+            alert.setHeaderText("Ошибка загрузки данных!");
+            alert.setContentText("Проверьте интернет-соединение");
+            alert.showAndWait();
+            Platform.exit();
+            System.exit(0);
+        }
+
+        Map<String, Reader.ParamsContainer> data = webReader.getData();
+        for (var entry : data.entrySet()){
+            Reader.ParamsContainer params = entry.getValue();
+            Converter converter = new Converter();
+            converter.setQuantity(params.quantity);
+            converter.setRatio(params.ratio);
+            this.converters.put(entry.getKey(), converter);
+
+            this.originalLang.getItems().add(String.format("%s - %s", entry.getKey(), params.name));
+            this.targetLang.getItems().add(String.format("%s - %s", entry.getKey(), params.name));
         }
     }
 
     @FXML
     protected void onClick() {
-        Double value = Double.valueOf(this.enterField.getText());
-        this.resultField.setText(String.valueOf(this.loader.convert(
-                this.originalLang.getValue().substring(0, 3),
-                this.targetLang.getValue().substring(0, 3),
-                value)));
+        String currency1 = this.originalLang.getValue().substring(0, 3);
+        String currency2 = this.targetLang.getValue().substring(0, 3);
+
+        if (!currency1.equals(currency2)) {
+            Double value = Double.valueOf(this.enterField.getText());
+            Double originalToRub = this.converters.get(currency1).reverseConvert(value);
+            Double toTarget = this.converters.get(currency2).convert(originalToRub);
+            this.resultField.setText(String.valueOf(toTarget));
+        } else {
+            this.resultField.setText(this.enterField.getText());
+        }
     }
 }
