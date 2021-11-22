@@ -44,6 +44,7 @@ public class CurrencyConverterController implements Initializable {
                 reader = new CacheReader();
                 reader.read();
             } catch (IOException e2) {
+                System.out.println(e2);
                 this.showErrorWindow(new FileAccessErrorWindow(), true);
             }
         }

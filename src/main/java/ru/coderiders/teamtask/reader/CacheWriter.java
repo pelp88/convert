@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class CacheWriter { // not used yet
     public static void write(Map<String, Reader.CurrencyData> data) throws IOException {
-        FileWriter writer = new FileWriter("./cache.json");
+        FileWriter writer = new FileWriter("/Users/pelp88/teamtask/cache.json");
         String json = new ObjectMapper().writeValueAsString(data);
         writer.write(json);
         writer.close();
