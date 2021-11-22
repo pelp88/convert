@@ -1,4 +1,4 @@
-package ru.coderiders.teamtask;
+package ru.coderiders.teamtask.reader;
 
 import java.io.*;
 import java.util.HashMap;

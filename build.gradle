@@ -23,8 +23,8 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-    mainModule = 'ru.coderiders.teamtask'
-    mainClass = 'ru.coderiders.teamtask.HelloApplication'
+    mainModule = 'ru.coderiders.teamtask.core'
+    mainClass = 'ru.coderiders.teamtask.core.CurrencyConverterApplication'
 }
 
 javafx {
@@ -45,4 +45,9 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+jar {
+    archiveBaseName = 'teamtask1'
+    archiveVersion =  '0.0.1'
 }

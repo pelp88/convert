@@ -1,4 +1,4 @@
-package ru.coderiders.teamtask;
+package ru.coderiders.teamtask.reader;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Map;
 
 public class CacheWriter { // not used yet
-    public static void write(Map<String, Object> data) throws IOException {
+    public static void write(Map<String, Reader.CurrencyData> data) throws IOException {
         FileWriter writer = new FileWriter("./cache.json");
         String json = new ObjectMapper().writeValueAsString(data);
         writer.write(json);

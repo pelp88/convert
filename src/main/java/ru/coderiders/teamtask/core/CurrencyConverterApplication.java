@@ -1,4 +1,4 @@
-package ru.coderiders.teamtask;
+package ru.coderiders.teamtask.core;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -6,10 +6,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Application extends javafx.application.Application {
+public class CurrencyConverterApplication extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("main.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(CurrencyConverterApplication.class.getResource("main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 400, 300);
         stage.setTitle("Конвертер валют");
         stage.setScene(scene);

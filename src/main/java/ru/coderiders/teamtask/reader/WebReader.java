@@ -1,4 +1,4 @@
-package ru.coderiders.teamtask;
+package ru.coderiders.teamtask.reader;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.*;
@@ -16,14 +16,14 @@ public class WebReader extends Reader {
         elems.remove(0);
 
         for (Element i : elems){
-            ParamsContainer params = new ParamsContainer();
+            CurrencyData params = new CurrencyData();
             params.name = i.child(3).text();
             params.ratio = Double.parseDouble(i.child(4).text().replaceAll(",", "."));
             params.quantity = Integer.parseInt(i.child(2).text());
             this.data.put(i.child(1).text(), params);
         }
 
-        ParamsContainer rus = new ParamsContainer();
+        CurrencyData rus = new CurrencyData();
         rus.name = "Российский рубль";
         rus.ratio = 1.0;
         rus.quantity = 1;
